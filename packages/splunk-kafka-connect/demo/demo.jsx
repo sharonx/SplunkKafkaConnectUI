@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
 import SplunkKafkaConnect from '../src/SplunkKafkaConnect';
+import ConnectorInfo from '../src/ConnectorInfo';
 
 const containerEl = document.getElementById('main-component-container');
 class Home extends Component {
@@ -10,10 +11,18 @@ class Home extends Component {
     }
 };
 
+class ConnectorPage extends Component {
+    render() {
+        return (<h1>Connector</h1>)
+    }
+}
 
 render(
-    <BrowserRouter>
-        <Route path="/" component={Home}/>
-    </BrowserRouter>,
+    <HashRouter>
+        <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/connector" component={ConnectorPage}/>
+        </Switch>
+    </HashRouter>,
     document.getElementById('main-component-container')
 );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Table from '@splunk/react-ui/Table';
+import { Link } from 'react-router-dom';
 import css from './KafkaConnectors.css';
 
 class KafkaConnectors extends Component {
@@ -8,17 +9,14 @@ class KafkaConnectors extends Component {
         connectors: PropTypes.array,
     };
 
-    static defaultProps = {
-        name: 'User',
-    };
-
     handlerClick = (e, data) => {
-        
+        window.location.href = 'connector'
     };
 
     render() {
         return (
             <div className={css.container}>
+                <Link to="/connector">Click </Link>
                 <Table stripeRows>
                 <Table.Head>
                     <Table.HeadCell>Name</Table.HeadCell>
@@ -28,7 +26,7 @@ class KafkaConnectors extends Component {
                 <Table.Body>
                     {this.props.connectors.map(row => (
                         <Table.Row key={row.name}>
-                            <Table.Cell onClick={this.handlerClick}>{row.name}</Table.Cell>
+                            <Table.Cell>{row.name}</Table.Cell>
                             <Table.Cell>{row.status}</Table.Cell>
                             <Table.Cell>{row.numTasks}</Table.Cell>
                         </Table.Row>
