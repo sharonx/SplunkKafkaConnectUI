@@ -9,9 +9,3 @@
     box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
     color: $gray40;
 }
-
-.greeting {
-    font-weight: bold;
-    color: $brandColor;
-    font-size: 30px;
-}

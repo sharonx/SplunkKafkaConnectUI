@@ -88,6 +88,16 @@
     lodash "^4.14.2"
     prop-types "^15.5.8"
 
+"@splunk/react-page@^0.3.3":
+  version "0.3.3"
+  resolved "https://repo.splunk.com/artifactory/api/npm/npm/@splunk/react-page/-/@splunk/react-page-0.3.3.tgz#a948a24e468133c6972984ce699ca18182d92b0a"
+  dependencies:
+    "@splunk/react-ui" "^0.12.0"
+    "@splunk/splunk-utils" "^0.5.0"
+    "@splunk/ui-utils" "^0.4.0"
+    prop-types "^15.5.8"
+    scriptjs "^2.5.8"
+
 "@splunk/react-ui@^0.12.0":
   version "0.12.2"
   resolved "https://repo.splunk.com/artifactory/api/npm/npm/@splunk/react-ui/-/@splunk/react-ui-0.12.2.tgz#e2fcb8b172a85fdda77810541f77b4050a56fb7d"
@@ -104,6 +114,13 @@
     react-event-listener "^0.4.3"
     react-motion "^0.4.8"
     react-sortable-hoc "^0.6.1"
+
+"@splunk/splunk-utils@^0.5.0":
+  version "0.5.0"
+  resolved "https://repo.splunk.com/artifactory/api/npm/npm/@splunk/splunk-utils/-/@splunk/splunk-utils-0.5.0.tgz#646495696a5544970e848e5369bb422a5b4e4d67"
+  dependencies:
+    "@splunk/ui-utils" "^0.4.0"
+    lodash "^4.17.4"
 
 "@splunk/stylelint-config@^1.2.0":
   version "1.2.0"
@@ -6282,6 +6299,10 @@ saucelabs@^1.4.0:
 sax@~1.2.1:
   version "1.2.4"
   resolved "https://repo.splunk.com/artifactory/api/npm/npm/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+
+scriptjs@^2.5.8:
+  version "2.5.8"
+  resolved "https://repo.splunk.com/artifactory/api/npm/npm/scriptjs/-/scriptjs-2.5.8.tgz#d0c43955c2e6bad33b6e4edf7b53b8965aa7ca5f"
 
 select-hose@^2.0.0:
   version "2.0.0"

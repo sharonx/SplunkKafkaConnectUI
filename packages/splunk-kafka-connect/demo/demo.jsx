@@ -5,23 +5,12 @@ import SplunkKafkaConnect from '../src/SplunkKafkaConnect';
 import ConnectorInfo from '../src/ConnectorInfo';
 
 const containerEl = document.getElementById('main-component-container');
-class Home extends Component {
-    render() {
-        return (<SplunkKafkaConnect />);
-    }
-};
-
-class ConnectorPage extends Component {
-    render() {
-        return (<h1>Connector</h1>)
-    }
-}
 
 render(
     <HashRouter>
         <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/connector" component={ConnectorPage}/>
+            <Route exact path="/" component={SplunkKafkaConnect}/>
+            <Route path="/connector/:name" component={ConnectorInfo}/>
         </Switch>
     </HashRouter>,
     document.getElementById('main-component-container')

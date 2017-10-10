@@ -43,6 +43,8 @@ class SplunkKafkaConnect extends Component {
                 });
 
                 this.setState({connectors});
+            }).catch(err => {
+                console.error(`Problems with fetching connectors ${err.message}`);
             })
     }
 
