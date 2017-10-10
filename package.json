@@ -1,0 +1,20 @@
+{
+  "name": "@splunk/splunk-kafka-connect-ui",
+  "license": "UNLICENSED",
+  "scripts": {
+    "bootstrap": "lerna bootstrap --concurrency=1",
+    "build": "lerna run build",
+    "format": "git ls-files | grep -E \"\\.(jsx?|css)$\" | xargs prettier --write",
+    "format:verify": "git ls-files | grep -E \"\\.(jsx?|css)$\" | xargs prettier --list-different",
+    "lint": "lerna run lint --no-sort",
+    "start": "lerna run start --stream --no-sort --concurrency 100",
+    "test": "lerna run test --stream --no-sort"
+  },
+  "devDependencies": {
+    "lerna": "^2.0.0",
+    "prettier": "^1.7.0"
+  },
+  "engines": {
+    "node": ">=6"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "lerna": "2.0.0",
+  "packages": ["packages/*"],
+  "npmClient": "yarn",
+  "command": {
+    "publish": {
+      "registry": "https://repo.splunk.com/artifactory/api/npm/npm-solutions-local"
+    }
+  }
+}
