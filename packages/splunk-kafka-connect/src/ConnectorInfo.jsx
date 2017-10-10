@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as _ from 'lodash'
 import ColumnLayout from '@splunk/react-ui/ColumnLayout';
+import Button from '@splunk/react-ui/Button';
 import Code from '@splunk/react-ui/Code';
 import Text from '@splunk/react-ui/Text';
+import Message from '@splunk/react-ui/Message';
 import Table from '@splunk/react-ui/Table';
 import urls from './urls';
-import css from './ConnectorInfo.css';
+
 
 class ConnectorInfo extends Component {
     static propTypes = {
@@ -19,7 +21,7 @@ class ConnectorInfo extends Component {
         const tasks = [];
         const config = '';
         const newConfig = {};
-        this.state = {tasks, config, newConfig};
+        this.state = {tasks, config, newConfig, showError: false, showMessage: false};
 
         const connectorUrl = `${urls.baseUrl}${urls.connectors}/${this.name}`;
         const connectorStatusUrl = `${urls.baseUrl}${urls.connectors}/${this.name}/status`;
@@ -51,7 +53,35 @@ class ConnectorInfo extends Component {
         }
     };
 
+    handleClick = () => {
+        this.setState({ showError: false, showMessage: true });
+        if (this.state.newConfig.Error) {
+            return false;
+        }
+
+        const configUrl = `${urls.baseUrl}${urls.connectors}/${this.name}/config`;
+        fetch(configUrl, {
+            method: 'put',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.newConfig),
+        }).then(res => {
+            if (res.ok) {
+                console.log('Configuration updated successfully');
+            } else{
+                this.setState({ showError: true });
+                console.error('Configuration updated with error');
+            }
+        })
+    }
+
     render() {
+        const messageStyle = {
+            display: 'inline'
+        }
         return (
             <div>
                 <h2>
@@ -78,6 +108,17 @@ class ConnectorInfo extends Component {
                         <ColumnLayout.Column span={8}>
                             <Text multiline value={this.state.config} onChange={this.handleChange} rowsMin={10} rowsMax={15}/>
                             <Code value={JSON.stringify(this.state.newConfig, null, 4)} />
+                            <Button label="Update" appearance="primary" onClick={this.handleClick}/>
+                            {
+                                this.state.showMessage && this.state.showError
+                                    ? <Message type="error" style={messageStyle}>Error happened when updating the configuration.</Message>
+                                    : null
+                            }
+                            {
+                                this.state.showMessage && !this.state.showError
+                                    ? <Message type="success" style={messageStyle}>Configuration updated succesfully.</Message>
+                                    : null
+                            }
                         </ColumnLayout.Column>
                     </ColumnLayout.Row>
             </ColumnLayout>
