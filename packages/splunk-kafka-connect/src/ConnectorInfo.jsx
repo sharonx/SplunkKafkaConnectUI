@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as _ from 'lodash'
 import ColumnLayout from '@splunk/react-ui/ColumnLayout';
 import Code from '@splunk/react-ui/Code';
+import Text from '@splunk/react-ui/Text';
 import Table from '@splunk/react-ui/Table';
 import urls from './urls';
 import css from './ConnectorInfo.css';
@@ -16,8 +17,9 @@ class ConnectorInfo extends Component {
         super(props)
         this.name = this.props.match.params.name;
         const tasks = [];
-        const config = {};
-        this.state = {tasks, config};
+        const config = '';
+        const newConfig = {};
+        this.state = {tasks, config, newConfig};
 
         const connectorUrl = `${urls.baseUrl}${urls.connectors}/${this.name}`;
         const connectorStatusUrl = `${urls.baseUrl}${urls.connectors}/${this.name}/status`;
@@ -32,12 +34,22 @@ class ConnectorInfo extends Component {
 
                 return Promise.all(resArray);
             }).then(jsonArray => {
-                this.setState({ config: jsonArray[0].config });
+                this.setState({ config: JSON.stringify(jsonArray[0].config, null, 4) });
+                this.setState({ newConfig: jsonArray[0].config });
                 this.setState({ tasks: jsonArray[1].tasks });
             }).catch(err => {
                 console.error(`Problems with fetching connectors: ${this.name}. \nErrors: ${err.message}`);
             });
     }
+
+    handleChange = (e, data) => {
+        this.setState({ config: data.value });
+        try {
+            this.setState({ newConfig: JSON.parse(data.value) });
+        } catch(error) {
+            this.setState({ newConfig: {Error: 'Cannot parse the JSON input' } });
+        }
+    };
 
     render() {
         return (
@@ -64,7 +76,8 @@ class ConnectorInfo extends Component {
                             </Table>
                         </ColumnLayout.Column>
                         <ColumnLayout.Column span={8}>
-                            <Code value={JSON.stringify(this.state.config, null, 4)} />
+                            <Text multiline value={this.state.config} onChange={this.handleChange} rowsMin={10} rowsMax={15}/>
+                            <Code value={JSON.stringify(this.state.newConfig, null, 4)} />
                         </ColumnLayout.Column>
                     </ColumnLayout.Row>
             </ColumnLayout>
