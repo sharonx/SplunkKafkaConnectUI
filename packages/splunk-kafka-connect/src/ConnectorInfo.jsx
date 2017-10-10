@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as _ from 'lodash'
+import ColumnLayout from '@splunk/react-ui/ColumnLayout';
 import Code from '@splunk/react-ui/Code';
 import Table from '@splunk/react-ui/Table';
 import urls from './urls';
@@ -39,27 +40,34 @@ class ConnectorInfo extends Component {
     }
 
     render() {
-        
         return (
             <div>
                 <h2>
                     {this.name} Infomration
                 </h2>
-                <Table stripeRows>
-                    <Table.Head>
-                        <Table.HeadCell>Work ID</Table.HeadCell>
-                        <Table.HeadCell>Status</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body>
-                        {this.state.tasks.map(row => (
-                            <Table.Row key={row.id}>
-                                <Table.Cell>{row.worker_id}</Table.Cell>
-                                <Table.Cell>{row.state}</Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                </Table>
-                <Code value={JSON.stringify(this.state.config, null, 4)} />
+                <ColumnLayout>
+                    <ColumnLayout.Row>
+                        <ColumnLayout.Column span={4}>
+                            <Table stripeRows>
+                                <Table.Head>
+                                    <Table.HeadCell>Work ID</Table.HeadCell>
+                                    <Table.HeadCell>Status</Table.HeadCell>
+                                </Table.Head>
+                                <Table.Body>
+                                    {this.state.tasks.map(row => (
+                                        <Table.Row key={row.id}>
+                                            <Table.Cell>{row.worker_id}</Table.Cell>
+                                            <Table.Cell>{row.state}</Table.Cell>
+                                        </Table.Row>
+                                    ))}
+                                </Table.Body>
+                            </Table>
+                        </ColumnLayout.Column>
+                        <ColumnLayout.Column span={8}>
+                            <Code value={JSON.stringify(this.state.config, null, 4)} />
+                        </ColumnLayout.Column>
+                    </ColumnLayout.Row>
+            </ColumnLayout>
         </div>
         );
     }
