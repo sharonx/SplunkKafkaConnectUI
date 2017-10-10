@@ -50,7 +50,7 @@ class SplunkKafkaConnect extends Component {
         return (
             <div className={css.container}>
                 <Button
-                    label="Create NEw"
+                    label="Create New"
                     appearance="primary"
                     onClick={() => {
                         //to do
