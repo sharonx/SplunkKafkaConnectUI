@@ -1,20 +1,18 @@
 {
-    "org.apache.kafka.connect.file.FileStreamSourceConnector": {
+    "FileStreamSourceConnector": {
         "name": "FileStreamSourceConnector",
         "connector.class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
         "file": "",
         "topic": "",
         "tasks.max": 1
     },
-    "org.apache.kafka.connect.file.FileStreamSinkConnector": {
-        "name": "FileStreamSinkConnector",
+    "FileStreamSinkConnector": {
         "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
         "file": "",
         "topics": "",
         "tasks.max": "1"
     },
-    "com.splunk.kafka.connect.SplunkSinkConnector": {
-        "name": "SplunkSinkConnector",
+    "SplunkSinkConnector": {
         "connector.class": "com.splunk.kafka.connect.SplunkSinkConnector",
         "splunk.hec.raw": "false",
         "splunk.hec.ssl.validate.certs": "false",
