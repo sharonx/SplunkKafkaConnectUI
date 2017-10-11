@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from '@splunk/react-ui/Button';
 import Text from '@splunk/react-ui/Text';
 import Modal from '@splunk/react-ui/Modal';
@@ -10,9 +11,13 @@ import urls from '../urls';
 
 
 class NewConnectorModal extends Component {
-  constructor(props) {
+    static propTypes = {
+        refresh: PropTypes.func
+    };
+
+    constructor(props) {
         super(props)
-        this.state = { plugins: [], className: '', showError: false, showMessage: false, config: '', connectorName: ''};
+        this.state = { plugins: [], className: '', showError: false, config: '', connectorName: ''};
     }
 
     handleRequestOpen = () => {
@@ -53,6 +58,7 @@ class NewConnectorModal extends Component {
             const updateConfig = JSON.parse(this.state.config);
             const validationUrl = `${urls.baseUrl}${urls.connectorPlugins}/${updateConfig['connector.class']}/config/validate`;
             const createConnectorUrl = urls.baseUrl + urls.connectors;
+
             fetch(validationUrl, {
                 method: 'put',
                 mode: 'cors',
@@ -79,12 +85,15 @@ class NewConnectorModal extends Component {
                 throw new Error('Invalid configuration');
             }).then(res => {
                 if (res.ok) {
-                    this.setState({ showError: false, showMessage: true });
-                } else {
-                    throw new Error('Error happened when create new connector');
-                }
+                   return this.setState({ open: false });
+                } 
+
+                throw new Error('Error happened when create new connector');
+            }).then(() => {
+                this.props.refresh();
+                this.setState({ plugins: [], className: '', showError: false, config: '', connectorName: ''});
             }).catch(error => {
-                this.setState({ showError: true, showMessage: true });
+                this.setState({ showError: true});
                 console.error(error.message);
             })
         }
@@ -140,11 +149,6 @@ class NewConnectorModal extends Component {
                     {
                         this.state.showError
                             ? <Message type="error" style={messageStyle}>Invalid Configuration</Message>
-                            : null
-                    }
-                    {
-                        this.state.showMessage && !this.state.showError
-                            ? <Message type="success" style={messageStyle}>Connector is added</Message>
                             : null
                     }
                 </Modal.Body>

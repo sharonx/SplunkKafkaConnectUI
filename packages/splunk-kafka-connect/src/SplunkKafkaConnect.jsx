@@ -56,7 +56,7 @@ class SplunkKafkaConnect extends Component {
     render() {
         return (
             <div className={css.container}>
-                <NewConnectorModal />
+                <NewConnectorModal refresh={this.getConnectors}/>
                 <KafkaConnectors connectors={this.state.connectors} refresh={this.getConnectors}/>
             </div>
         );
