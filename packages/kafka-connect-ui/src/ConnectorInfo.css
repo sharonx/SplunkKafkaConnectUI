@@ -1,3 +1,10 @@
+.container {
+    font-family: sans-serif;
+    font-weight: lighter;
+    width: 100%;
+    margin-top: 80px;
+}
+
 codeSpan {
     display: block
 }

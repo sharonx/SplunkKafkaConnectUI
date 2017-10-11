@@ -1,11 +1,12 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge');
-const baseComponentConfig = require('@splunk/webpack-configs/component.config').default;
+const baseComponentConfig = require('@splunk/webpack-configs/base.config').default;
 
 module.exports = webpackMerge(baseComponentConfig, {
-    entry: path.join(__dirname, 'src/SplunkKafkaConnect.jsx'),
+    entry: path.join(__dirname, 'src/index'),
     output: {
-        filename: 'SplunkKafkaConnect.js',
+        filename: 'bundle.js',
         path: path.join(__dirname, 'lib'),
     },
+    devtool: 'source-map'
 });

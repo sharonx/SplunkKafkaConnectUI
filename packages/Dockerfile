@@ -1,10 +1,8 @@
 FROM mhart/alpine-node
 
-ADD kafka-connect-ui /kafka-connect-ui 
-WORKDIR /kafka-connect-ui
-
-RUN npm install -g yarn
+ADD kafka-connect-ui-prod /kafka-connect-ui
+WORKDIR /kafka-connect-uid
 
 EXPOSE 8080
 
-CMD ["yarn", "run", "start:demo"]
+CMD ["npm", "start"]

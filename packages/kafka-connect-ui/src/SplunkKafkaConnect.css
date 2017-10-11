@@ -1,11 +1,10 @@
 .container {
     font-family: sans-serif;
     font-weight: lighter;
-    font-size: 20px;
-    line-height: 200%;
-    margin: 20px 10px;
-    padding: 25px 40px;
-    border-radius: 1px;
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
-    color: $gray40;
+    width: 100%;
+    margin-top: 80px;
+}
+
+.container table {
+    margin: 10px 0;
 }

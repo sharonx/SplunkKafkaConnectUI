@@ -4,6 +4,7 @@ import ColumnLayout from '@splunk/react-ui/ColumnLayout';
 import Table from '@splunk/react-ui/Table';
 import urls from './urls';
 import ConfigurationBox from './components/ConfigurationBox';
+import css from './ConnectorInfo.css';
 
 
 class ConnectorInfo extends Component {
@@ -37,7 +38,7 @@ class ConnectorInfo extends Component {
 
     render() {
         return (
-            <div>
+            <div className={css.container}>
                 <h2>
                     {this.name} Infomration
                 </h2>
