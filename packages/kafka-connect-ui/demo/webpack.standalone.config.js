@@ -11,5 +11,9 @@ module.exports = webpackMerge(baseConfig, {
             template: path.join(__dirname, 'standalone/index.html'),
         }),
     ],
+    devServer: {
+        host: '0.0.0.0',
+        disableHostCheck: true
+    },
     devtool: 'eval-source-map',
 });

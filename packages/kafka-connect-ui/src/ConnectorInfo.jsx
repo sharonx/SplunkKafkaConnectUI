@@ -46,7 +46,7 @@ class ConnectorInfo extends Component {
                         <ColumnLayout.Column span={4}>
                             <Table stripeRows>
                                 <Table.Head>
-                                    <Table.HeadCell>Work ID</Table.HeadCell>
+                                    <Table.HeadCell>Worker ID</Table.HeadCell>
                                     <Table.HeadCell>Status</Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body>
