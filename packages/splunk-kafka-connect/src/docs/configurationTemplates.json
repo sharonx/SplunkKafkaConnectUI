@@ -1,0 +1,27 @@
+{
+    "org.apache.kafka.connect.file.FileStreamSourceConnector": {
+        "name": "FileStreamSourceConnector",
+        "connector.class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
+        "file": "",
+        "topic": "",
+        "tasks.max": 1
+    },
+    "org.apache.kafka.connect.file.FileStreamSinkConnector": {
+        "name": "FileStreamSinkConnector",
+        "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+        "file": "",
+        "topics": "",
+        "tasks.max": "1"
+    },
+    "com.splunk.kafka.connect.SplunkSinkConnector": {
+        "name": "SplunkSinkConnector",
+        "connector.class": "com.splunk.kafka.connect.SplunkSinkConnector",
+        "splunk.hec.raw": "false",
+        "splunk.hec.ssl.validate.certs": "false",
+        "topics": "perf",
+        "tasks.max": "3",
+        "splunk.hec.ack.enabled": "true",
+        "splunk.hec.token": "",
+        "splunk.hec.uri": "https://127.0.0.1:8088"
+    }
+}

@@ -13,5 +13,5 @@ render(
             <Route path="/connector/:name" component={ConnectorInfo}/>
         </Switch>
     </HashRouter>,
-    document.getElementById('main-component-container')
+    containerEl
 );

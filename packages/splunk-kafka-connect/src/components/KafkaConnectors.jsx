@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Table from '@splunk/react-ui/Table';
-import { Link } from 'react-router-dom';
 import css from './KafkaConnectors.css';
 
 class KafkaConnectors extends Component {
@@ -16,7 +15,6 @@ class KafkaConnectors extends Component {
     render() {
         return (
             <div className={css.container}>
-                <Link to="/connector">Click </Link>
                 <Table stripeRows>
                     <Table.Head>
                         <Table.HeadCell>Name</Table.HeadCell>
