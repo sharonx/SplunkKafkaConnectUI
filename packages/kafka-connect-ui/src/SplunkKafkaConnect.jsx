@@ -4,6 +4,7 @@ import urls from './urls';
 import KafkaConnectors from './components/KafkaConnectors';
 import css from './SplunkKafkaConnect.css';
 import NewConnectorModal from './components/NewConnectorModal'
+import TopologyGraph from './components/TopologyGraph'
 
 class SplunkKafkaConnect extends Component {
     constructor(props) {
@@ -11,6 +12,20 @@ class SplunkKafkaConnect extends Component {
         this.state = { connectors: [], open: false, plugins: [] };
         
         this.getConnectors();
+        const connectorPluginsUrl = urls.baseUrl + urls.connectorPlugins;
+
+        fetch(connectorPluginsUrl)
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+
+                throw new Error('Cannot get kafka connector plugins');
+            }).then(res => {
+                this.setState({ plugins: res });
+            }).catch(err => {
+                console.error(err.message);
+            });
     }
 
     getConnectors = () => {
@@ -48,6 +63,7 @@ class SplunkKafkaConnect extends Component {
                 const connector = {};
                 connector.name = data.name;
                 connector.numTasks = data.tasks.length;
+                connector.class = data.config['connector.class'];
                 connectors.push(connector);
             });
 
@@ -80,8 +96,9 @@ class SplunkKafkaConnect extends Component {
         return (
             <div className={css.container}>
                 <h2>Kafka Connectors</h2>
-                <NewConnectorModal refresh={this.getConnectors}/>
+                <NewConnectorModal refresh={this.getConnectors} plugins={this.state.plugins}/>
                 <KafkaConnectors connectors={this.state.connectors} refresh={this.getConnectors}/>
+                <TopologyGraph plugins={this.state.plugins} connectors={this.state.connectors} />
             </div>
         );
     }

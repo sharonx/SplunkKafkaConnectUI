@@ -12,34 +12,19 @@ import urls from '../urls';
 
 class NewConnectorModal extends Component {
     static propTypes = {
-        refresh: PropTypes.func
+        refresh: PropTypes.func,
+        plugins: PropTypes.array
     };
 
     constructor(props) {
         super(props)
-        this.state = { plugins: [], className: '', showError: false, config: '', connectorName: ''};
+        this.state = { className: '', showError: false, config: '', connectorName: ''};
     }
 
     handleRequestOpen = () => {
         this.setState({
             open: true,
         });
-
-        const connectorPluginsUrl = urls.baseUrl + urls.connectorPlugins;
-
-        fetch(connectorPluginsUrl)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-
-                throw new Error('Cannot get kafka connector plugins');
-            }).then(res => {
-                this.setState({ plugins: res });
-            }).catch(err => {
-                this.setState({ showError: true });
-                console.error(err.message);
-            });
     };
 
     handleChange = (e, { value }) => {
@@ -138,7 +123,7 @@ class NewConnectorModal extends Component {
                     </ControlGroup>
                     <ControlGroup label="Plugins">
                         <Select onChange={this.handleSelectChange}>
-                            {this.state.plugins.map(plugin => (
+                            {this.props.plugins.map(plugin => (
                                 <Select.Option label={plugin.class} description={`TYPE: ${plugin.type} VERSION: ${plugin.version}`} value={plugin.class} key={plugin.class} />
                             ))}
                         </Select>

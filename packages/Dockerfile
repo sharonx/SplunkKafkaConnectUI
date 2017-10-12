@@ -1,7 +1,7 @@
 FROM mhart/alpine-node
 
 ADD kafka-connect-ui-prod /kafka-connect-ui
-WORKDIR /kafka-connect-uid
+WORKDIR /kafka-connect-ui
 
 EXPOSE 8080
 
