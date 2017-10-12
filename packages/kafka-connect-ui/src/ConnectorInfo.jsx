@@ -7,6 +7,7 @@ import Button from '@splunk/react-ui/Button';
 import Popover from '@splunk/react-ui/Popover';
 import Question from '@splunk/react-icons/Question';
 import urls from './urls';
+import css from './ConnectorInfo.css';
 import ConfigurationBox from './components/ConfigurationBox';
 
 
@@ -131,7 +132,7 @@ class ConnectorInfo extends Component {
 
     render() {
         return (
-            <div>
+            <div className={css.container}>
                 <h2>
                     {this.name} Infomration
                 </h2>
