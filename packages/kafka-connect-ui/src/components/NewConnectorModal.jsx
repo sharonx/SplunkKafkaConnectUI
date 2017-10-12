@@ -124,7 +124,7 @@ class NewConnectorModal extends Component {
                     <ControlGroup label="Plugins">
                         <Select onChange={this.handleSelectChange}>
                             {this.props.plugins.map(plugin => (
-                                <Select.Option label={plugin.class} description={`TYPE: ${plugin.type} VERSION: ${plugin.version}`} value={plugin.class} key={plugin.class} />
+                                <Select.Option label={plugin.class.split('.').pop()} description={`TYPE: ${plugin.type} VERSION: ${plugin.version}`} value={plugin.class} key={plugin.class} />
                             ))}
                         </Select>
                     </ControlGroup>

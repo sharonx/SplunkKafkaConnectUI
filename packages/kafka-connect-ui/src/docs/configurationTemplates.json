@@ -16,10 +16,18 @@
         "connector.class": "com.splunk.kafka.connect.SplunkSinkConnector",
         "splunk.hec.raw": "false",
         "splunk.hec.ssl.validate.certs": "false",
-        "topics": "perf",
+        "topics": "syslog,perf",
         "tasks.max": "3",
         "splunk.hec.ack.enabled": "true",
-        "splunk.hec.token": "",
-        "splunk.hec.uri": "https://127.0.0.1:8088"
+        "name": "syslog-splunk-sink",
+        "splunk.hec.token": "536AF219-CF36-4C8C-AA0C-FD9793A0F4DD",
+        "splunk.hec.uri": "https://heclb-1795869775.us-west-1.elb.amazonaws.com:8088"
+    },
+    "TCPSyslogSourceConnector": {
+        "connector.class": "com.github.jcustenborder.kafka.connect.syslog.TCPSyslogSourceConnector",
+        "tasks.max": "1",
+        "name": "syslog",
+        "kafka.topic": "syslog",
+        "syslog.port": "5514"
     }
 }
