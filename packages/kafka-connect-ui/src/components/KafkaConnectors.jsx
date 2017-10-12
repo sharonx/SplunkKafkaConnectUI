@@ -81,7 +81,7 @@ class KafkaConnectors extends Component {
                 <Table stripeRows>
                     <Table.Head>
                         <Table.HeadCell>Name</Table.HeadCell>
-                        <Table.HeadCell>Connection</Table.HeadCell>
+                        <Table.HeadCell>Connections</Table.HeadCell>
                         <Table.HeadCell>Status</Table.HeadCell>
                         <Table.HeadCell>Actions</Table.HeadCell>
                     </Table.Head>
