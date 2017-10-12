@@ -27,7 +27,7 @@ class SplunkKafkaConnect extends Component {
             const promises = [];
 
             _.each(res, (connector) => {
-                promises.push(fetch(`${connectorsUrl}/${connector}/status`));
+                promises.push(fetch(`${connectorsUrl}/${connector}`));
             })
 
             return Promise.all(promises);
@@ -39,12 +39,35 @@ class SplunkKafkaConnect extends Component {
 
             return Promise.all(resArray);
         }).then(jsonArray => {
+            const statusPromises = [];
+            _.each(jsonArray, (connector) => {
+                statusPromises.push(fetch(`${connectorsUrl}/${connector.name}/status`));
+            })
+
             _.each(jsonArray, data => {
                 const connector = {};
                 connector.name = data.name;
-                connector.status = data.connector.state;
                 connector.numTasks = data.tasks.length;
                 connectors.push(connector);
+            });
+
+            return Promise.all(statusPromises);
+
+            // this.setState({connectors});
+        }).then(promises => {
+            const resArray = [];
+            _.each(promises, promise=> {
+                resArray.push(promise.json());
+            });
+
+            return Promise.all(resArray);
+        }).then(jsonStatusArray => {
+
+            _.each(connectors, connector => {
+                const find = _.find(jsonStatusArray, connectorStatus => connector.name === connectorStatus.name);
+                if (find) {
+                    connector.status = find.connector.state;
+                }
             });
 
             this.setState({connectors});
