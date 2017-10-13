@@ -27,6 +27,7 @@ class TopologyGraph extends Component {
         let ret = {};
         const nodes = [];
         const links = [];
+        let hasSink = false;
         if ((this.props.connectors || []).length && (this.props.plugins || []).length) {
             _.each(this.props.connectors, connector => {
                 const node = {};
@@ -42,7 +43,12 @@ class TopologyGraph extends Component {
                 if (find) {
                     node.type = find.type;
                 }
-                nodes.push(node);
+
+                if (node.type !== 'sink') {
+                    nodes.push(node);
+                } else {
+                    hasSink = true;
+                }
             });
 
             nodes.push({
@@ -50,20 +56,14 @@ class TopologyGraph extends Component {
                 color: 'grey'
             });
 
-            // nodes.push({
-            //     name: 'Splunk Sink',
-            //     color: 'darkblue'
-            // });
+            const kafkaIndex = nodes.length - 1;
 
-            nodes.push({
-                name: 'Splunk',
-                color: 'black'
-            });
-
-
-            const kafkaIndex = nodes.length - 2;
-            let splunkSinkIndex;
-            const splunkIndex = nodes.length - 1;
+            const numSource = _.reduce(nodes, (sum, node)=> {
+                if (node.type === 'source'){
+                    sum += 1;
+                }
+                return sum;
+            }, 0);
 
             nodes.forEach((node, idx) => {
                 if (node.type === 'source') {
@@ -71,26 +71,27 @@ class TopologyGraph extends Component {
                         source: idx,
                         target: kafkaIndex,
                         value: 10,
-                        color: 'lightgreen'
-                    });
-                }
-                else if (node.type === 'sink') {
-                    splunkSinkIndex = idx;
-                    links.push({
-                        source: idx,
-                        target: splunkIndex,
-                        color: 'lightblue',
-                        value: 10
+                        color: 'lightblue'
                     });
                 }
             });
 
-            links.push({
-                source: kafkaIndex,
-                target: splunkSinkIndex,
-                color: '#eee',
-                value:  10
-            })
+            if (hasSink) {
+                nodes.push({
+                    name: 'Splunk',
+                    color: 'black'
+                });
+
+                const splunkIndex = nodes.length - 1;
+
+                links.push({
+                    source: kafkaIndex,
+                    target: splunkIndex,
+                    color: 'lightgreen',
+                    value:  10 * numSource
+                })
+            }
+
             ret = {
                 nodes,
                 links,
